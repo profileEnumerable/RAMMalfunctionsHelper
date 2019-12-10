@@ -5,7 +5,9 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="3a1205c047a14bdc90f4797522d92546" Name="Diagram1" >
-        <EntityTypeShape EntityType="RamMalfunctionsModel.Entity1" Width="1.5" PointX="7.125" PointY="2.75" />
+        <EntityTypeShape EntityType="RamMalfunctionsModel.RAM" Width="1.5" PointX="6.875" PointY="2.25" />
+        <EntityTypeShape EntityType="RamMalfunctionsModel.Manufacturer" Width="1.5" PointX="3" PointY="2.625" IsExpanded="true" />
+        <AssociationConnector Association="RamMalfunctionsModel.ManufacturerRAM" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
