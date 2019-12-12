@@ -4,10 +4,18 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="3a1205c047a14bdc90f4797522d92546" Name="Diagram1" >
-        <EntityTypeShape EntityType="RamMalfunctionsModel.RAM" Width="1.5" PointX="6.875" PointY="2.25" />
-        <EntityTypeShape EntityType="RamMalfunctionsModel.Manufacturer" Width="1.5" PointX="3" PointY="2.625" IsExpanded="true" />
+      <Diagram DiagramId="3a1205c047a14bdc90f4797522d92546" Name="Diagram1" ZoomLevel="97" >
+        <EntityTypeShape EntityType="RamMalfunctionsModel.RAM" Width="1.5" PointX="6" PointY="4.25" />
+        <EntityTypeShape EntityType="RamMalfunctionsModel.Manufacturer" Width="1.5" PointX="3.125" PointY="4.75" IsExpanded="true" />
         <AssociationConnector Association="RamMalfunctionsModel.ManufacturerRAM" />
+        <EntityTypeShape EntityType="RamMalfunctionsModel.RAMMedia" Width="1.5" PointX="9" PointY="5" />
+        <AssociationConnector Association="RamMalfunctionsModel.RAMRAMMedia" />
+        <EntityTypeShape EntityType="RamMalfunctionsModel.RAMMediaType" Width="1.5" PointX="11.75" PointY="5.25" />
+        <EntityTypeShape EntityType="RamMalfunctionsModel.UserServiceLink" Width="1.5" PointX="9.125" PointY="1.875" />
+        <EntityTypeShape EntityType="RamMalfunctionsModel.Malfunction" Width="1.5" PointX="6" PointY="1.875" />
+        <AssociationConnector Association="RamMalfunctionsModel.RAMMalfunction" />
+        <AssociationConnector Association="RamMalfunctionsModel.MalfunctionUserServiceLink" />
+        <AssociationConnector Association="RamMalfunctionsModel.RAMMediaTypeRAMMedia" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

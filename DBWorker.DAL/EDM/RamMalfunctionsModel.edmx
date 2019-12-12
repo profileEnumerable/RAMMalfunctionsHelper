@@ -19,6 +19,26 @@
             <End Role="Manufacturer" EntitySet="Manufacturers" />
             <End Role="RAM" EntitySet="RAMs" />
           </AssociationSet>
+          <AssociationSet Name="RAMRAMMedia" Association="RamMalfunctionsModel.RAMRAMMedia">
+            <End Role="RAM" EntitySet="RAMs" />
+            <End Role="RAMMedia" EntitySet="RAMMedias" />
+          </AssociationSet>
+          <EntitySet Name="RAMMediaTypes" EntityType="RamMalfunctionsModel.RAMMediaType" />
+          <EntitySet Name="UserServiceLinks" EntityType="RamMalfunctionsModel.UserServiceLink" />
+          <EntitySet Name="Malfunctions" EntityType="RamMalfunctionsModel.Malfunction" />
+          <AssociationSet Name="RAMMalfunction" Association="RamMalfunctionsModel.RAMMalfunction">
+            <End Role="RAM" EntitySet="RAMs" />
+            <End Role="Malfunction" EntitySet="Malfunctions" />
+          </AssociationSet>
+          <AssociationSet Name="MalfunctionUserServiceLink" Association="RamMalfunctionsModel.MalfunctionUserServiceLink">
+            <End Role="Malfunction" EntitySet="Malfunctions" />
+            <End Role="UserServiceLink" EntitySet="UserServiceLinks" />
+          </AssociationSet>
+          <EntitySet Name="RAMMedias" EntityType="RamMalfunctionsModel.RAMMedia" />
+          <AssociationSet Name="RAMMediaTypeRAMMedia" Association="RamMalfunctionsModel.RAMMediaTypeRAMMedia">
+            <End Role="RAMMediaType" EntitySet="RAMMediaTypes" />
+            <End Role="RAMMedia" EntitySet="RAMMedias" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="RAM">
           <Key>
@@ -33,6 +53,8 @@
           <Property Name="IsBuffered" Type="String" Nullable="false" />
           <Property Name="Warranty" Type="String" Nullable="false" />
           <NavigationProperty Name="Manufacturer" Relationship="RamMalfunctionsModel.ManufacturerRAM" FromRole="RAM" ToRole="Manufacturer" />
+          <NavigationProperty Name="RAMMedias" Relationship="RamMalfunctionsModel.RAMRAMMedia" FromRole="RAM" ToRole="RAMMedia" />
+          <NavigationProperty Name="Malfunctions" Relationship="RamMalfunctionsModel.RAMMalfunction" FromRole="RAM" ToRole="Malfunction" />
         </EntityType>
         <EntityType Name="Manufacturer">
           <Key>
@@ -47,6 +69,51 @@
         <Association Name="ManufacturerRAM">
           <End Type="RamMalfunctionsModel.Manufacturer" Role="Manufacturer" Multiplicity="1" />
           <End Type="RamMalfunctionsModel.RAM" Role="RAM" Multiplicity="*" />
+        </Association>
+        <EntityType Name="RAMMedia">
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Source" Type="String" Nullable="false" />
+          <NavigationProperty Name="RAM" Relationship="RamMalfunctionsModel.RAMRAMMedia" FromRole="RAMMedia" ToRole="RAM" />
+          <NavigationProperty Name="RAMMediaType" Relationship="RamMalfunctionsModel.RAMMediaTypeRAMMedia" FromRole="RAMMedia" ToRole="RAMMediaType" />
+        </EntityType>
+        <Association Name="RAMRAMMedia">
+          <End Type="RamMalfunctionsModel.RAM" Role="RAM" Multiplicity="1" />
+          <End Type="RamMalfunctionsModel.RAMMedia" Role="RAMMedia" Multiplicity="*" />
+        </Association>
+        <EntityType Name="RAMMediaType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="RAMMedias" Relationship="RamMalfunctionsModel.RAMMediaTypeRAMMedia" FromRole="RAMMediaType" ToRole="RAMMedia" />
+        </EntityType>
+        <EntityType Name="UserServiceLink">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Malfunction" Relationship="RamMalfunctionsModel.MalfunctionUserServiceLink" FromRole="UserServiceLink" ToRole="Malfunction" />
+          <Property Name="Link" Type="String" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Malfunction">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="RAM" Relationship="RamMalfunctionsModel.RAMMalfunction" FromRole="Malfunction" ToRole="RAM" />
+          <NavigationProperty Name="UserServiceLinks" Relationship="RamMalfunctionsModel.MalfunctionUserServiceLink" FromRole="Malfunction" ToRole="UserServiceLink" />
+        </EntityType>
+        <Association Name="RAMMalfunction">
+          <End Type="RamMalfunctionsModel.RAM" Role="RAM" Multiplicity="1" />
+          <End Type="RamMalfunctionsModel.Malfunction" Role="Malfunction" Multiplicity="*" />
+        </Association>
+        <Association Name="MalfunctionUserServiceLink">
+          <End Type="RamMalfunctionsModel.Malfunction" Role="Malfunction" Multiplicity="1" />
+          <End Type="RamMalfunctionsModel.UserServiceLink" Role="UserServiceLink" Multiplicity="*" />
+        </Association>
+        <Association Name="RAMMediaTypeRAMMedia">
+          <End Type="RamMalfunctionsModel.RAMMediaType" Role="RAMMediaType" Multiplicity="1" />
+          <End Type="RamMalfunctionsModel.RAMMedia" Role="RAMMedia" Multiplicity="*" />
         </Association>
       </Schema>
     </edmx:ConceptualModels>
