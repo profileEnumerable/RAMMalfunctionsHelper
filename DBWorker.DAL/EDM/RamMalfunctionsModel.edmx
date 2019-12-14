@@ -4,11 +4,203 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl" Namespace="RamMalfunctionsModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005">
-        <EntityContainer Name="RamMalfunctionsModelTargetContainer" >
-        </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+    <Schema Namespace="RamMalfunctionsModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="RamMalfunctionsModelStoreContainer">
+    <EntitySet Name="RAMs" EntityType="RamMalfunctionsModel.Store.RAMs" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Manufacturers" EntityType="RamMalfunctionsModel.Store.Manufacturers" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="RAMMediaTypes" EntityType="RamMalfunctionsModel.Store.RAMMediaTypes" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="UserServiceLinks" EntityType="RamMalfunctionsModel.Store.UserServiceLinks" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="RAMMedias" EntityType="RamMalfunctionsModel.Store.RAMMedias" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Malfunctions" EntityType="RamMalfunctionsModel.Store.Malfunctions" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="RAMMulfunctions" EntityType="RamMalfunctionsModel.Store.RAMMulfunctions" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="FixIssues" EntityType="RamMalfunctionsModel.Store.FixIssues" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="ManufacturerRAM" Association="RamMalfunctionsModel.Store.ManufacturerRAM">
+      <End Role="Manufacturer" EntitySet="Manufacturers" />
+      <End Role="RAM" EntitySet="RAMs" />
+    </AssociationSet>
+    <AssociationSet Name="RAMRAMMedia" Association="RamMalfunctionsModel.Store.RAMRAMMedia">
+      <End Role="RAM" EntitySet="RAMs" />
+      <End Role="RAMMedia" EntitySet="RAMMedias" />
+    </AssociationSet>
+    <AssociationSet Name="MalfunctionUserServiceLink" Association="RamMalfunctionsModel.Store.MalfunctionUserServiceLink">
+      <End Role="Malfunction" EntitySet="Malfunctions" />
+      <End Role="UserServiceLink" EntitySet="UserServiceLinks" />
+    </AssociationSet>
+    <AssociationSet Name="RAMMediaTypeRAMMedia" Association="RamMalfunctionsModel.Store.RAMMediaTypeRAMMedia">
+      <End Role="RAMMediaType" EntitySet="RAMMediaTypes" />
+      <End Role="RAMMedia" EntitySet="RAMMedias" />
+    </AssociationSet>
+    <AssociationSet Name="RAMMulfunctionsRAM" Association="RamMalfunctionsModel.Store.RAMMulfunctionsRAM">
+      <End Role="RAMMulfunctions" EntitySet="RAMMulfunctions" />
+      <End Role="RAM" EntitySet="RAMs" />
+    </AssociationSet>
+    <AssociationSet Name="RAMMulfunctionsMalfunction" Association="RamMalfunctionsModel.Store.RAMMulfunctionsMalfunction">
+      <End Role="RAMMulfunctions" EntitySet="RAMMulfunctions" />
+      <End Role="Malfunction" EntitySet="Malfunctions" />
+    </AssociationSet>
+    <AssociationSet Name="MalfunctionFixIssue" Association="RamMalfunctionsModel.Store.MalfunctionFixIssue">
+      <End Role="Malfunction" EntitySet="Malfunctions" />
+      <End Role="FixIssue" EntitySet="FixIssues" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="RAMs">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Size" Type="int" Nullable="false" />
+    <Property Name="PruductionDate" Type="datetime" Nullable="false" />
+    <Property Name="MemoryFrequency" Type="int" Nullable="true" />
+    <Property Name="UsePropose" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="IsBuffered" Type="bit" Nullable="false" />
+    <Property Name="Warranty" Type="datetime" Nullable="false" />
+    <Property Name="Manufacturer_Id" Type="int" Nullable="false" />
+    <Property Name="RAMMulfunction_Id" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Manufacturers">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Country" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="IsCertified" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="RAMMediaTypes">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Type" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UserServiceLinks">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Link" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Malfunction_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="RAMMedias">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Data" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="RAM_Id" Type="int" Nullable="false" />
+    <Property Name="RAMMediaType_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Malfunctions">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="AppearsDate" Type="datetime" Nullable="false" />
+    <Property Name="RAMMulfunction_Id" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="RAMMulfunctions">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="FixIssues">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Type" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Price" Type="decimal" Nullable="false" />
+    <Property Name="TimeSpan" Type="datetime" Nullable="false" />
+    <Property Name="Malfunction_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="ManufacturerRAM">
+    <End Role="Manufacturer" Type="RamMalfunctionsModel.Store.Manufacturers" Multiplicity="1" />
+    <End Role="RAM" Type="RamMalfunctionsModel.Store.RAMs" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Manufacturer">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="RAM">
+        <PropertyRef Name="Manufacturer_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="RAMRAMMedia">
+    <End Role="RAM" Type="RamMalfunctionsModel.Store.RAMs" Multiplicity="1" />
+    <End Role="RAMMedia" Type="RamMalfunctionsModel.Store.RAMMedias" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="RAM">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="RAMMedia">
+        <PropertyRef Name="RAM_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="MalfunctionUserServiceLink">
+    <End Role="Malfunction" Type="RamMalfunctionsModel.Store.Malfunctions" Multiplicity="1" />
+    <End Role="UserServiceLink" Type="RamMalfunctionsModel.Store.UserServiceLinks" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Malfunction">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserServiceLink">
+        <PropertyRef Name="Malfunction_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="RAMMediaTypeRAMMedia">
+    <End Role="RAMMediaType" Type="RamMalfunctionsModel.Store.RAMMediaTypes" Multiplicity="1" />
+    <End Role="RAMMedia" Type="RamMalfunctionsModel.Store.RAMMedias" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="RAMMediaType">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="RAMMedia">
+        <PropertyRef Name="RAMMediaType_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="RAMMulfunctionsRAM">
+    <End Role="RAMMulfunctions" Type="RamMalfunctionsModel.Store.RAMMulfunctions" Multiplicity="1" />
+    <End Role="RAM" Type="RamMalfunctionsModel.Store.RAMs" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="RAMMulfunctions">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="RAM">
+        <PropertyRef Name="RAMMulfunction_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="RAMMulfunctionsMalfunction">
+    <End Role="RAMMulfunctions" Type="RamMalfunctionsModel.Store.RAMMulfunctions" Multiplicity="1" />
+    <End Role="Malfunction" Type="RamMalfunctionsModel.Store.Malfunctions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="RAMMulfunctions">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Malfunction">
+        <PropertyRef Name="RAMMulfunction_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="MalfunctionFixIssue">
+    <End Role="Malfunction" Type="RamMalfunctionsModel.Store.Malfunctions" Multiplicity="1" />
+    <End Role="FixIssue" Type="RamMalfunctionsModel.Store.FixIssues" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Malfunction">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="FixIssue">
+        <PropertyRef Name="Malfunction_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="RamMalfunctionsModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
@@ -81,6 +273,9 @@
           <End Type="RamMalfunctionsModel.RAM" Role="RAM" Multiplicity="*" />
         </Association>
         <EntityType Name="RAMMedia">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <NavigationProperty Name="RAM" Relationship="RamMalfunctionsModel.RAMRAMMedia" FromRole="RAMMedia" ToRole="RAM" />
           <NavigationProperty Name="RAMMediaType" Relationship="RamMalfunctionsModel.RAMMediaTypeRAMMedia" FromRole="RAMMedia" ToRole="RAMMediaType" />
@@ -107,6 +302,9 @@
           <Property Name="Link" Type="String" Nullable="false" />
         </EntityType>
         <EntityType Name="Malfunction">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <NavigationProperty Name="UserServiceLinks" Relationship="RamMalfunctionsModel.MalfunctionUserServiceLink" FromRole="Malfunction" ToRole="UserServiceLink" />
           <NavigationProperty Name="RAMMulfunction" Relationship="RamMalfunctionsModel.RAMMulfunctionsMalfunction" FromRole="Malfunction" ToRole="RAMMulfunctions" />
@@ -123,8 +321,12 @@
           <End Type="RamMalfunctionsModel.RAMMedia" Role="RAMMedia" Multiplicity="*" />
         </Association>
         <EntityType Name="RAMMulfunctions">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
           <NavigationProperty Name="RAMs" Relationship="RamMalfunctionsModel.RAMMulfunctionsRAM" FromRole="RAMMulfunctions" ToRole="RAM" />
           <NavigationProperty Name="Malfunctions" Relationship="RamMalfunctionsModel.RAMMulfunctionsMalfunction" FromRole="RAMMulfunctions" ToRole="Malfunction" />
+          <Property Name="Id" Type="String" Nullable="false" />
         </EntityType>
         <Association Name="RAMMulfunctionsRAM">
           <End Type="RamMalfunctionsModel.RAMMulfunctions" Role="RAMMulfunctions" Multiplicity="1" />
@@ -152,13 +354,140 @@
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
-      <Mapping xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs" Space="C-S">
-        <Alias Key="Model" Value="RamMalfunctionsModel" />
-        <Alias Key="Target" Value="RamMalfunctionsModel.Store" />
-        <EntityContainerMapping CdmEntityContainer="RamMalfunctionsModelContainer" StorageEntityContainer="RamMalfunctionsModelTargetContainer">
-        </EntityContainerMapping>
-      </Mapping>
-    </edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="RamMalfunctionsModelStoreContainer" CdmEntityContainer="RamMalfunctionsModelContainer">
+    <EntitySetMapping Name="RAMs">
+      <EntityTypeMapping TypeName="IsTypeOf(RamMalfunctionsModel.RAM)">
+        <MappingFragment StoreEntitySet="RAMs">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Size" ColumnName="Size" />
+          <ScalarProperty Name="PruductionDate" ColumnName="PruductionDate" />
+          <ScalarProperty Name="MemoryFrequency" ColumnName="MemoryFrequency" />
+          <ScalarProperty Name="UsePropose" ColumnName="UsePropose" />
+          <ScalarProperty Name="IsBuffered" ColumnName="IsBuffered" />
+          <ScalarProperty Name="Warranty" ColumnName="Warranty" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Manufacturers">
+      <EntityTypeMapping TypeName="IsTypeOf(RamMalfunctionsModel.Manufacturer)">
+        <MappingFragment StoreEntitySet="Manufacturers">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Country" ColumnName="Country" />
+          <ScalarProperty Name="IsCertified" ColumnName="IsCertified" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RAMMediaTypes">
+      <EntityTypeMapping TypeName="IsTypeOf(RamMalfunctionsModel.RAMMediaType)">
+        <MappingFragment StoreEntitySet="RAMMediaTypes">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserServiceLinks">
+      <EntityTypeMapping TypeName="IsTypeOf(RamMalfunctionsModel.UserServiceLink)">
+        <MappingFragment StoreEntitySet="UserServiceLinks">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Link" ColumnName="Link" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RAMMedias">
+      <EntityTypeMapping TypeName="IsTypeOf(RamMalfunctionsModel.RAMMedia)">
+        <MappingFragment StoreEntitySet="RAMMedias">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Data" ColumnName="Data" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Malfunctions">
+      <EntityTypeMapping TypeName="IsTypeOf(RamMalfunctionsModel.Malfunction)">
+        <MappingFragment StoreEntitySet="Malfunctions">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="AppearsDate" ColumnName="AppearsDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RAMMulfunctions">
+      <EntityTypeMapping TypeName="IsTypeOf(RamMalfunctionsModel.RAMMulfunctions)">
+        <MappingFragment StoreEntitySet="RAMMulfunctions">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FixIssues">
+      <EntityTypeMapping TypeName="IsTypeOf(RamMalfunctionsModel.FixIssue)">
+        <MappingFragment StoreEntitySet="FixIssues">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="TimeSpan" ColumnName="TimeSpan" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="ManufacturerRAM" TypeName="RamMalfunctionsModel.ManufacturerRAM" StoreEntitySet="RAMs">
+      <EndProperty Name="Manufacturer">
+        <ScalarProperty Name="Id" ColumnName="Manufacturer_Id" />
+      </EndProperty>
+      <EndProperty Name="RAM">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="RAMRAMMedia" TypeName="RamMalfunctionsModel.RAMRAMMedia" StoreEntitySet="RAMMedias">
+      <EndProperty Name="RAM">
+        <ScalarProperty Name="Id" ColumnName="RAM_Id" />
+      </EndProperty>
+      <EndProperty Name="RAMMedia">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="MalfunctionUserServiceLink" TypeName="RamMalfunctionsModel.MalfunctionUserServiceLink" StoreEntitySet="UserServiceLinks">
+      <EndProperty Name="Malfunction">
+        <ScalarProperty Name="Id" ColumnName="Malfunction_Id" />
+      </EndProperty>
+      <EndProperty Name="UserServiceLink">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="RAMMediaTypeRAMMedia" TypeName="RamMalfunctionsModel.RAMMediaTypeRAMMedia" StoreEntitySet="RAMMedias">
+      <EndProperty Name="RAMMediaType">
+        <ScalarProperty Name="Id" ColumnName="RAMMediaType_Id" />
+      </EndProperty>
+      <EndProperty Name="RAMMedia">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="RAMMulfunctionsRAM" TypeName="RamMalfunctionsModel.RAMMulfunctionsRAM" StoreEntitySet="RAMs">
+      <EndProperty Name="RAMMulfunctions">
+        <ScalarProperty Name="Id" ColumnName="RAMMulfunction_Id" />
+      </EndProperty>
+      <EndProperty Name="RAM">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="RAMMulfunctionsMalfunction" TypeName="RamMalfunctionsModel.RAMMulfunctionsMalfunction" StoreEntitySet="Malfunctions">
+      <EndProperty Name="RAMMulfunctions">
+        <ScalarProperty Name="Id" ColumnName="RAMMulfunction_Id" />
+      </EndProperty>
+      <EndProperty Name="Malfunction">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="MalfunctionFixIssue" TypeName="RamMalfunctionsModel.MalfunctionFixIssue" StoreEntitySet="FixIssues">
+      <EndProperty Name="Malfunction">
+        <ScalarProperty Name="Id" ColumnName="Malfunction_Id" />
+      </EndProperty>
+      <EndProperty Name="FixIssue">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
   </edmx:Runtime>
   <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
@@ -172,6 +501,7 @@
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="True" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
       </DesignerInfoPropertySet>
     </edmx:Options>
     <!-- Diagram content (shape and connector positions) -->
