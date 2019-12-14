@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DBWorker.Properties {
+namespace DBWorker.DAL.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
@@ -26,9 +26,8 @@ namespace DBWorker.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\fibon\\source\\repos\\D" +
-            "BWorker\\DBWorker.DAL\\RamMulfunctiosDB.mdf;Integrated Security=True;Connect Timeo" +
-            "ut=30")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\\RamMulfunctio" +
+            "sDB.mdf;Integrated Security=True;Connect Timeout=30")]
         public string RamMulfunctiosDBConnectionString {
             get {
                 return ((string)(this["RamMulfunctiosDBConnectionString"]));

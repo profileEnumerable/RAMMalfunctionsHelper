@@ -104,7 +104,7 @@
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Id" Type="nvarchar(max)" Nullable="false" StoreGeneratedPattern="None" />
   </EntityType>
   <EntityType Name="FixIssues">
     <Key>
@@ -326,7 +326,7 @@
           </Key>
           <NavigationProperty Name="RAMs" Relationship="RamMalfunctionsModel.RAMMulfunctionsRAM" FromRole="RAMMulfunctions" ToRole="RAM" />
           <NavigationProperty Name="Malfunctions" Relationship="RamMalfunctionsModel.RAMMulfunctionsMalfunction" FromRole="RAMMulfunctions" ToRole="Malfunction" />
-          <Property Name="Id" Type="String" Nullable="false" />
+          <Property Name="Id" Type="String" Nullable="false" annotation:StoreGeneratedPattern="None" />
         </EntityType>
         <Association Name="RAMMulfunctionsRAM">
           <End Type="RamMalfunctionsModel.RAMMulfunctions" Role="RAMMulfunctions" Multiplicity="1" />
