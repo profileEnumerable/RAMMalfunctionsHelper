@@ -5,20 +5,20 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="3a1205c047a14bdc90f4797522d92546" Name="Diagram1" ZoomLevel="90" >
-        <EntityTypeShape EntityType="RamMalfunctionsModel.RAM" Width="1.5" PointX="6" PointY="7.125" />
-        <EntityTypeShape EntityType="RamMalfunctionsModel.Manufacturer" Width="1.5" PointX="3.125" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="RamMalfunctionsModel.RAM" Width="1.5" PointX="6" PointY="7.5" />
+        <EntityTypeShape EntityType="RamMalfunctionsModel.Manufacturer" Width="1.5" PointX="3" PointY="7.25" IsExpanded="true" />
         <AssociationConnector Association="RamMalfunctionsModel.ManufacturerRAM" />
-        <EntityTypeShape EntityType="RamMalfunctionsModel.RAMMedia" Width="1.5" PointX="9" PointY="7" />
+        <EntityTypeShape EntityType="RamMalfunctionsModel.RAMMedia" Width="1.5" PointX="8.875" PointY="7.375" />
         <AssociationConnector Association="RamMalfunctionsModel.RAMRAMMedia" />
-        <EntityTypeShape EntityType="RamMalfunctionsModel.RAMMediaType" Width="1.5" PointX="11.625" PointY="7.125" />
-        <EntityTypeShape EntityType="RamMalfunctionsModel.UserServiceLink" Width="1.5" PointX="9.125" PointY="2.875" />
-        <EntityTypeShape EntityType="RamMalfunctionsModel.Malfunction" Width="1.5" PointX="6" PointY="2.875" />
+        <EntityTypeShape EntityType="RamMalfunctionsModel.RAMMediaType" Width="1.5" PointX="11.5" PointY="7.5" />
+        <EntityTypeShape EntityType="RamMalfunctionsModel.UserServiceLink" Width="1.5" PointX="8.875" PointY="2.75" />
+        <EntityTypeShape EntityType="RamMalfunctionsModel.Malfunction" Width="1.5" PointX="6" PointY="2.5" />
         <AssociationConnector Association="RamMalfunctionsModel.MalfunctionUserServiceLink" />
         <AssociationConnector Association="RamMalfunctionsModel.RAMMediaTypeRAMMedia" />
         <EntityTypeShape EntityType="RamMalfunctionsModel.RAMMulfunctions" Width="1.5" PointX="6" PointY="5.375" />
         <AssociationConnector Association="RamMalfunctionsModel.RAMMulfunctionsRAM" />
         <AssociationConnector Association="RamMalfunctionsModel.RAMMulfunctionsMalfunction" />
-        <EntityTypeShape EntityType="RamMalfunctionsModel.FixIssue" Width="1.5" PointX="3.125" PointY="3" />
+        <EntityTypeShape EntityType="RamMalfunctionsModel.FixIssue" Width="1.5" PointX="3" PointY="2.625" />
         <AssociationConnector Association="RamMalfunctionsModel.MalfunctionFixIssue" />
       </Diagram>
     </edmx:Diagrams>
