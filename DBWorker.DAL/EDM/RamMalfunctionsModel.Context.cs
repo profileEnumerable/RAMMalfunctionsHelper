@@ -18,6 +18,7 @@ namespace DBWorker.DAL.EDM
         public RamMalfunctionsModelContainer()
             : base("name=RamMalfunctionsModelContainer")
         {
+            
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
