@@ -18,7 +18,6 @@ namespace DBWorker.DAL.EDM
         public RamMalfunctionsModelContainer()
             : base("name=RamMalfunctionsModelContainer")
         {
-            
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -32,7 +31,6 @@ namespace DBWorker.DAL.EDM
         public virtual DbSet<UserServiceLink> UserServiceLinks { get; set; }
         public virtual DbSet<RAMMedia> RAMMedias { get; set; }
         public virtual DbSet<Malfunction> Malfunctions { get; set; }
-        public virtual DbSet<RAMMulfunctions> RAMMulfunctions { get; set; }
         public virtual DbSet<FixIssue> FixIssues { get; set; }
     }
 }

@@ -12,7 +12,6 @@
     <EntitySet Name="UserServiceLinks" EntityType="RamMalfunctionsModel.Store.UserServiceLinks" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="RAMMedias" EntityType="RamMalfunctionsModel.Store.RAMMedias" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Malfunctions" EntityType="RamMalfunctionsModel.Store.Malfunctions" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="RAMMulfunctions" EntityType="RamMalfunctionsModel.Store.RAMMulfunctions" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="FixIssues" EntityType="RamMalfunctionsModel.Store.FixIssues" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="ManufacturerRAM" Association="RamMalfunctionsModel.Store.ManufacturerRAM">
       <End Role="Manufacturer" EntitySet="Manufacturers" />
@@ -29,14 +28,6 @@
     <AssociationSet Name="RAMMediaTypeRAMMedia" Association="RamMalfunctionsModel.Store.RAMMediaTypeRAMMedia">
       <End Role="RAMMediaType" EntitySet="RAMMediaTypes" />
       <End Role="RAMMedia" EntitySet="RAMMedias" />
-    </AssociationSet>
-    <AssociationSet Name="RAMMulfunctionsRAM" Association="RamMalfunctionsModel.Store.RAMMulfunctionsRAM">
-      <End Role="RAMMulfunctions" EntitySet="RAMMulfunctions" />
-      <End Role="RAM" EntitySet="RAMs" />
-    </AssociationSet>
-    <AssociationSet Name="RAMMulfunctionsMalfunction" Association="RamMalfunctionsModel.Store.RAMMulfunctionsMalfunction">
-      <End Role="RAMMulfunctions" EntitySet="RAMMulfunctions" />
-      <End Role="Malfunction" EntitySet="Malfunctions" />
     </AssociationSet>
     <AssociationSet Name="MalfunctionFixIssue" Association="RamMalfunctionsModel.Store.MalfunctionFixIssue">
       <End Role="Malfunction" EntitySet="Malfunctions" />
@@ -100,12 +91,6 @@
     <Property Name="AppearsDate" Type="datetime" Nullable="false" />
     <Property Name="RAMMulfunction_Id" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
-  <EntityType Name="RAMMulfunctions">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="nvarchar(max)" Nullable="false" StoreGeneratedPattern="None" />
-  </EntityType>
   <EntityType Name="FixIssues">
     <Key>
       <PropertyRef Name="Id" />
@@ -164,30 +149,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="RAMMulfunctionsRAM">
-    <End Role="RAMMulfunctions" Type="RamMalfunctionsModel.Store.RAMMulfunctions" Multiplicity="1" />
-    <End Role="RAM" Type="RamMalfunctionsModel.Store.RAMs" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="RAMMulfunctions">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="RAM">
-        <PropertyRef Name="RAMMulfunction_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="RAMMulfunctionsMalfunction">
-    <End Role="RAMMulfunctions" Type="RamMalfunctionsModel.Store.RAMMulfunctions" Multiplicity="1" />
-    <End Role="Malfunction" Type="RamMalfunctionsModel.Store.Malfunctions" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="RAMMulfunctions">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Malfunction">
-        <PropertyRef Name="RAMMulfunction_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="MalfunctionFixIssue">
     <End Role="Malfunction" Type="RamMalfunctionsModel.Store.Malfunctions" Multiplicity="1" />
     <End Role="FixIssue" Type="RamMalfunctionsModel.Store.FixIssues" Multiplicity="*" />
@@ -227,19 +188,14 @@
             <End Role="RAMMedia" EntitySet="RAMMedias" />
           </AssociationSet>
           <EntitySet Name="Malfunctions" EntityType="RamMalfunctionsModel.Malfunction" />
-          <EntitySet Name="RAMMulfunctions" EntityType="RamMalfunctionsModel.RAMMulfunctions" />
-          <AssociationSet Name="RAMMulfunctionsRAM" Association="RamMalfunctionsModel.RAMMulfunctionsRAM">
-            <End Role="RAMMulfunctions" EntitySet="RAMMulfunctions" />
-            <End Role="RAM" EntitySet="RAMs" />
-          </AssociationSet>
-          <AssociationSet Name="RAMMulfunctionsMalfunction" Association="RamMalfunctionsModel.RAMMulfunctionsMalfunction">
-            <End Role="RAMMulfunctions" EntitySet="RAMMulfunctions" />
-            <End Role="Malfunction" EntitySet="Malfunctions" />
-          </AssociationSet>
           <EntitySet Name="FixIssues" EntityType="RamMalfunctionsModel.FixIssue" />
           <AssociationSet Name="MalfunctionFixIssue" Association="RamMalfunctionsModel.MalfunctionFixIssue">
             <End Role="Malfunction" EntitySet="Malfunctions" />
             <End Role="FixIssue" EntitySet="FixIssues" />
+          </AssociationSet>
+          <AssociationSet Name="RAMMalfunction" Association="RamMalfunctionsModel.RAMMalfunction">
+            <End Role="RAM" EntitySet="RAMs" />
+            <End Role="Malfunction" EntitySet="Malfunctions" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="RAM">
@@ -256,7 +212,7 @@
           <Property Name="Warranty" Type="DateTime" Nullable="false" />
           <NavigationProperty Name="Manufacturer" Relationship="RamMalfunctionsModel.ManufacturerRAM" FromRole="RAM" ToRole="Manufacturer" />
           <NavigationProperty Name="RAMMedias" Relationship="RamMalfunctionsModel.RAMRAMMedia" FromRole="RAM" ToRole="RAMMedia" />
-          <NavigationProperty Name="RAMMulfunction" Relationship="RamMalfunctionsModel.RAMMulfunctionsRAM" FromRole="RAM" ToRole="RAMMulfunctions" />
+          <NavigationProperty Name="Malfunctions" Relationship="RamMalfunctionsModel.RAMMalfunction" FromRole="RAM" ToRole="Malfunction" />
         </EntityType>
         <EntityType Name="Manufacturer">
           <Key>
@@ -307,10 +263,10 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <NavigationProperty Name="UserServiceLinks" Relationship="RamMalfunctionsModel.MalfunctionUserServiceLink" FromRole="Malfunction" ToRole="UserServiceLink" />
-          <NavigationProperty Name="RAMMulfunction" Relationship="RamMalfunctionsModel.RAMMulfunctionsMalfunction" FromRole="Malfunction" ToRole="RAMMulfunctions" />
           <NavigationProperty Name="FixIssues" Relationship="RamMalfunctionsModel.MalfunctionFixIssue" FromRole="Malfunction" ToRole="FixIssue" />
           <Property Name="Description" Type="String" Nullable="false" />
           <Property Name="AppearsDate" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="RAM" Relationship="RamMalfunctionsModel.RAMMalfunction" FromRole="Malfunction" ToRole="RAM" />
         </EntityType>
         <Association Name="MalfunctionUserServiceLink">
           <End Type="RamMalfunctionsModel.Malfunction" Role="Malfunction" Multiplicity="1" />
@@ -319,22 +275,6 @@
         <Association Name="RAMMediaTypeRAMMedia">
           <End Type="RamMalfunctionsModel.RAMMediaType" Role="RAMMediaType" Multiplicity="1" />
           <End Type="RamMalfunctionsModel.RAMMedia" Role="RAMMedia" Multiplicity="*" />
-        </Association>
-        <EntityType Name="RAMMulfunctions">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <NavigationProperty Name="RAMs" Relationship="RamMalfunctionsModel.RAMMulfunctionsRAM" FromRole="RAMMulfunctions" ToRole="RAM" />
-          <NavigationProperty Name="Malfunctions" Relationship="RamMalfunctionsModel.RAMMulfunctionsMalfunction" FromRole="RAMMulfunctions" ToRole="Malfunction" />
-          <Property Name="Id" Type="String" Nullable="false" annotation:StoreGeneratedPattern="None" />
-        </EntityType>
-        <Association Name="RAMMulfunctionsRAM">
-          <End Type="RamMalfunctionsModel.RAMMulfunctions" Role="RAMMulfunctions" Multiplicity="1" />
-          <End Type="RamMalfunctionsModel.RAM" Role="RAM" Multiplicity="*" />
-        </Association>
-        <Association Name="RAMMulfunctionsMalfunction">
-          <End Type="RamMalfunctionsModel.RAMMulfunctions" Role="RAMMulfunctions" Multiplicity="1" />
-          <End Type="RamMalfunctionsModel.Malfunction" Role="Malfunction" Multiplicity="*" />
         </Association>
         <EntityType Name="FixIssue">
           <Key>
@@ -349,6 +289,10 @@
         <Association Name="MalfunctionFixIssue">
           <End Type="RamMalfunctionsModel.Malfunction" Role="Malfunction" Multiplicity="1" />
           <End Type="RamMalfunctionsModel.FixIssue" Role="FixIssue" Multiplicity="*" />
+        </Association>
+        <Association Name="RAMMalfunction">
+          <End Type="RamMalfunctionsModel.RAM" Role="RAM" Multiplicity="1" />
+          <End Type="RamMalfunctionsModel.Malfunction" Role="Malfunction" Multiplicity="*" />
         </Association>
       </Schema>
     </edmx:ConceptualModels>
@@ -413,13 +357,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="RAMMulfunctions">
-      <EntityTypeMapping TypeName="IsTypeOf(RamMalfunctionsModel.RAMMulfunctions)">
-        <MappingFragment StoreEntitySet="RAMMulfunctions">
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="FixIssues">
       <EntityTypeMapping TypeName="IsTypeOf(RamMalfunctionsModel.FixIssue)">
         <MappingFragment StoreEntitySet="FixIssues">
@@ -459,22 +396,6 @@
         <ScalarProperty Name="Id" ColumnName="RAMMediaType_Id" />
       </EndProperty>
       <EndProperty Name="RAMMedia">
-        <ScalarProperty Name="Id" ColumnName="Id" />
-      </EndProperty>
-    </AssociationSetMapping>
-    <AssociationSetMapping Name="RAMMulfunctionsRAM" TypeName="RamMalfunctionsModel.RAMMulfunctionsRAM" StoreEntitySet="RAMs">
-      <EndProperty Name="RAMMulfunctions">
-        <ScalarProperty Name="Id" ColumnName="RAMMulfunction_Id" />
-      </EndProperty>
-      <EndProperty Name="RAM">
-        <ScalarProperty Name="Id" ColumnName="Id" />
-      </EndProperty>
-    </AssociationSetMapping>
-    <AssociationSetMapping Name="RAMMulfunctionsMalfunction" TypeName="RamMalfunctionsModel.RAMMulfunctionsMalfunction" StoreEntitySet="Malfunctions">
-      <EndProperty Name="RAMMulfunctions">
-        <ScalarProperty Name="Id" ColumnName="RAMMulfunction_Id" />
-      </EndProperty>
-      <EndProperty Name="Malfunction">
         <ScalarProperty Name="Id" ColumnName="Id" />
       </EndProperty>
     </AssociationSetMapping>

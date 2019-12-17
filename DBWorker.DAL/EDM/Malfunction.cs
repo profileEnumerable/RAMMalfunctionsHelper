@@ -27,8 +27,8 @@ namespace DBWorker.DAL.EDM
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserServiceLink> UserServiceLinks { get; set; }
-        public virtual RAMMulfunctions RAMMulfunction { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<FixIssue> FixIssues { get; set; }
+        public virtual RAM RAM { get; set; }
     }
 }

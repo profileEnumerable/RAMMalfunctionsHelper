@@ -18,6 +18,7 @@ namespace DBWorker.DAL.EDM
         public RAM()
         {
             this.RAMMedias = new HashSet<RAMMedia>();
+            this.Malfunctions = new HashSet<Malfunction>();
         }
     
         public int Id { get; set; }
@@ -32,6 +33,7 @@ namespace DBWorker.DAL.EDM
         public virtual Manufacturer Manufacturer { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RAMMedia> RAMMedias { get; set; }
-        public virtual RAMMulfunctions RAMMulfunction { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Malfunction> Malfunctions { get; set; }
     }
 }
