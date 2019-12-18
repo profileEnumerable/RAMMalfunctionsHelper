@@ -193,11 +193,11 @@
             <End Role="Malfunction" EntitySet="Malfunctions" />
             <End Role="FixIssue" EntitySet="FixIssues" />
           </AssociationSet>
-          <AssociationSet Name="RAMMalfunction" Association="RamMalfunctionsModel.RAMMalfunction">
-            <End Role="RAM" EntitySet="RAMs" />
+          <AssociationSet Name="MalfunctionRAM" Association="RamMalfunctionsModel.MalfunctionRAM">
             <End Role="Malfunction" EntitySet="Malfunctions" />
+            <End Role="RAM" EntitySet="RAMs" />
           </AssociationSet>
-        </EntityContainer>
+          </EntityContainer>
         <EntityType Name="RAM">
           <Key>
             <PropertyRef Name="Id" />
@@ -212,7 +212,7 @@
           <Property Name="Warranty" Type="DateTime" Nullable="false" />
           <NavigationProperty Name="Manufacturer" Relationship="RamMalfunctionsModel.ManufacturerRAM" FromRole="RAM" ToRole="Manufacturer" />
           <NavigationProperty Name="RAMMedias" Relationship="RamMalfunctionsModel.RAMRAMMedia" FromRole="RAM" ToRole="RAMMedia" />
-          <NavigationProperty Name="Malfunctions" Relationship="RamMalfunctionsModel.RAMMalfunction" FromRole="RAM" ToRole="Malfunction" />
+          <NavigationProperty Name="Malfunction" Relationship="RamMalfunctionsModel.MalfunctionRAM" FromRole="RAM" ToRole="Malfunction" />
         </EntityType>
         <EntityType Name="Manufacturer">
           <Key>
@@ -266,7 +266,7 @@
           <NavigationProperty Name="FixIssues" Relationship="RamMalfunctionsModel.MalfunctionFixIssue" FromRole="Malfunction" ToRole="FixIssue" />
           <Property Name="Description" Type="String" Nullable="false" />
           <Property Name="AppearsDate" Type="DateTime" Nullable="false" />
-          <NavigationProperty Name="RAM" Relationship="RamMalfunctionsModel.RAMMalfunction" FromRole="Malfunction" ToRole="RAM" />
+          <NavigationProperty Name="RAM" Relationship="RamMalfunctionsModel.MalfunctionRAM" FromRole="Malfunction" ToRole="RAM" />
         </EntityType>
         <Association Name="MalfunctionUserServiceLink">
           <End Type="RamMalfunctionsModel.Malfunction" Role="Malfunction" Multiplicity="1" />
@@ -290,11 +290,11 @@
           <End Type="RamMalfunctionsModel.Malfunction" Role="Malfunction" Multiplicity="1" />
           <End Type="RamMalfunctionsModel.FixIssue" Role="FixIssue" Multiplicity="*" />
         </Association>
-        <Association Name="RAMMalfunction">
+        <Association Name="MalfunctionRAM">
+          <End Type="RamMalfunctionsModel.Malfunction" Role="Malfunction" Multiplicity="1" />
           <End Type="RamMalfunctionsModel.RAM" Role="RAM" Multiplicity="1" />
-          <End Type="RamMalfunctionsModel.Malfunction" Role="Malfunction" Multiplicity="*" />
         </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
