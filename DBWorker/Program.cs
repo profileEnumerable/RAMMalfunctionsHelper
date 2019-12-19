@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using DBWorker.DAL.EDM;
+using DBWorker.DAL.Entities;
+using DBWorker.DAL.EntityFramework;
 
 namespace DBWorker
 {
@@ -24,6 +23,7 @@ namespace DBWorker
             {
                 MessageBox.Show(ramMalfunctionsModelContainer.FixIssues.ToString());
             }
+
         }
     }
 }
