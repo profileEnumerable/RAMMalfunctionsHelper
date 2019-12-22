@@ -5,7 +5,6 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.Entity;
-using System.Windows.Forms;
 
 namespace DBWorker.DAL.Config
 {
@@ -16,11 +15,11 @@ namespace DBWorker.DAL.Config
 
         public RamMalfunctionsDbInitializer()
         {
-            _resourcePath = ConfigurationManager.ConnectionStrings["GithubPages"].ConnectionString;
+            _resourcePath = ConfigurationManager.ConnectionStrings["AbsoluteLocalPath"].ConnectionString;
 
             _configFileNames = new[]
             {
-                "FixIssue", "Malfunction", "UserServiceLink" ,"Ram",
+                "Ram","FixIssue", "Malfunction", "UserServiceLink"
             };
         }
 
@@ -35,11 +34,9 @@ namespace DBWorker.DAL.Config
         {
             foreach (var fileName in _configFileNames)
             {
-                var filePath = $@"{_resourcePath}{fileName}.json";
+                var filePath = $@"{_resourcePath}\{fileName}.json";
 
-                var json = new WebLoader(filePath).LoadAsync().Result;
-
-                MessageBox.Show(json);
+                var json = new FileLoader(filePath).Load();
 
                 switch (fileName)
                 {
@@ -60,7 +57,7 @@ namespace DBWorker.DAL.Config
                             break;
                         }
 
-                    case "RAM":
+                    case "Ram":
                         {
                             context.RAMs.AddRange(GetDeserializedCollection<List<Ram>>(json));
                             break;

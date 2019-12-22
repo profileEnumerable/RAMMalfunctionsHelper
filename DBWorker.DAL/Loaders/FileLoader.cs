@@ -14,13 +14,13 @@ namespace DBWorker.DAL.Loaders
             _filePath = filePath;
         }
 
-        public async Task<string> LoadAsync()
+        public string Load()
         {
             try
             {
                 using (var streamReader = new StreamReader(_filePath))
                 {
-                    return await streamReader.ReadToEndAsync();
+                    return  streamReader.ReadToEnd();
                 }
             }
             catch (Exception e)

@@ -26,10 +26,6 @@ namespace DBWorker
                     where ram.Id == 10
                     select ram.RAMMedias;
 
-                foreach (var VARIABLE in firstServiceLink)
-                {
-                    MessageBox.Show(VARIABLE.First().Data);
-                }
             }
         }
     }
