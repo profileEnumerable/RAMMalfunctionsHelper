@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBWorker", "DBWorker\DBWork
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBWorker.DAL", "DBWorker.DAL\DBWorker.DAL.csproj", "{34D1ABFF-9F18-431B-A4D0-D5DE0D5E21CE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBWorker.BLL", "DBWorker.BLL\DBWorker.BLL.csproj", "{6D4B8B0B-4594-4402-AA00-82735B94FEDF}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,10 +21,6 @@ Global
 		{34D1ABFF-9F18-431B-A4D0-D5DE0D5E21CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{34D1ABFF-9F18-431B-A4D0-D5DE0D5E21CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{34D1ABFF-9F18-431B-A4D0-D5DE0D5E21CE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6D4B8B0B-4594-4402-AA00-82735B94FEDF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6D4B8B0B-4594-4402-AA00-82735B94FEDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6D4B8B0B-4594-4402-AA00-82735B94FEDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6D4B8B0B-4594-4402-AA00-82735B94FEDF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

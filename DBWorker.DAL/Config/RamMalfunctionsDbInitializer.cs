@@ -1,34 +1,74 @@
-﻿using Newtonsoft.Json;
-using System.Data.Entity;
-using System.Net.Http;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using DBWorker.DAL.Entities;
+﻿using DBWorker.DAL.Entities;
 using DBWorker.DAL.EntityFramework;
+using DBWorker.DAL.Loaders;
+using Newtonsoft.Json;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Data.Entity;
+using System.Windows.Forms;
 
 namespace DBWorker.DAL.Config
 {
-    internal class RamMalfunctionsDbInitializer : DropCreateDatabaseAlways<RamMalfunctionsModelContainer>
+    internal class RamMalfunctionsDbInitializer : DropCreateDatabaseAlways<RamMalfunctionsContext>
     {
-        private static async Task<string> LoadJsonStringAsync(string uri)
-        {
-            var httpClient = new HttpClient();
+        private readonly string[] _configFileNames;
+        private readonly string _resourcePath;
 
-            return await httpClient.GetStringAsync(uri);
+        public RamMalfunctionsDbInitializer()
+        {
+            _resourcePath = ConfigurationManager.ConnectionStrings["GithubPages"].ConnectionString;
+
+            _configFileNames = new[]
+            {
+                "FixIssue", "Malfunction", "UserServiceLink" ,"Ram",
+            };
         }
 
-        protected override void Seed(RamMalfunctionsModelContainer context)
+        public static T GetDeserializedCollection<T>(string json) where T : class
         {
-            const string githubPages =
-                "https://raw.githubusercontent.com/profileEnumerable/profileEnumerable.github.io/master/cardData.json";
+            T items = JsonConvert.DeserializeObject<T>(json);
 
-            const string json = "{\r\n  \"FixIssue\": {\r\n    \"Type\": \"Hardware\",\r\n    \"Price\": \"100\",\r\n    \"TimeSpan\": \"12/17/2019 6:00:00 PM\"\r\n  }\r\n}"
+            return items;
+        }
 
+        protected override void Seed(RamMalfunctionsContext context)
+        {
+            foreach (var fileName in _configFileNames)
+            {
+                var filePath = $@"{_resourcePath}{fileName}.json";
 
-            FixIssue issue = JsonConvert.DeserializeObject<FixIssue>(json);
+                var json = new WebLoader(filePath).LoadAsync().Result;
 
+                MessageBox.Show(json);
 
-            MessageBox.Show(issue.Type);
+                switch (fileName)
+                {
+                    case "FixIssue":
+                        {
+                            context.FixIssues.AddRange(GetDeserializedCollection<List<FixIssue>>(json));
+                            break;
+                        }
+
+                    case "UserServiceLink":
+                        {
+                            context.UserServiceLinks.AddRange(GetDeserializedCollection<List<UserServiceLink>>(json));
+                            break;
+                        }
+                    case "Malfunction":
+                        {
+                            context.Malfunctions.AddRange(GetDeserializedCollection<List<Malfunction>>(json));
+                            break;
+                        }
+
+                    case "RAM":
+                        {
+                            context.RAMs.AddRange(GetDeserializedCollection<List<Ram>>(json));
+                            break;
+                        }
+                }
+            }
+
+            context.SaveChanges();
         }
     }
 }

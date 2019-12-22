@@ -1,22 +1,26 @@
-﻿using System.Data.Entity;
+﻿using System.Collections.Generic;
+using System.Data.Entity;
 using DBWorker.DAL.Config;
 using DBWorker.DAL.Entities;
 
 namespace DBWorker.DAL.EntityFramework
 {
-    public class RamMalfunctionsModelContainer : DbContext
+    public class RamMalfunctionsContext : DbContext
     {
-        public RamMalfunctionsModelContainer()
-            : base("name=RamMalfunctionsModelContainer")
+        public RamMalfunctionsContext()
+            : base("name=RamMalfunctionsContext")
         {
 
         }
 
-        static RamMalfunctionsModelContainer()
+        static RamMalfunctionsContext()
         {
             Database.SetInitializer(new RamMalfunctionsDbInitializer());
         }
 
+        public virtual DbSet<Ram> RAMs { get; set; }
+        public virtual DbSet<Manufacturer> Manufacturers { get; set; }
+        public virtual DbSet<RamMediaType> RAMMediaTypes { get; set; }
         public virtual DbSet<UserServiceLink> UserServiceLinks { get; set; }
         public virtual DbSet<RamMedia> RAMMedias { get; set; }
         public virtual DbSet<Malfunction> Malfunctions { get; set; }

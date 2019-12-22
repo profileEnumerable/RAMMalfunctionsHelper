@@ -1,14 +1,14 @@
 ﻿using System;
+using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
-using DBWorker.DAL.Entities;
 using DBWorker.DAL.EntityFramework;
 
 namespace DBWorker
 {
     static class Program
     {
-        /// <summary>
+        /// <summary> 
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
@@ -19,11 +19,18 @@ namespace DBWorker
             Application.Run(new Form1());
 
 
-            using (var ramMalfunctionsModelContainer = new RamMalfunctionsModelContainer())
+            using (var context = new RamMalfunctionsContext())
             {
-                MessageBox.Show(ramMalfunctionsModelContainer.FixIssues.ToString());
-            }
+                var firstServiceLink =
+                    from ram in context.RAMs
+                    where ram.Id == 10
+                    select ram.RAMMedias;
 
+                foreach (var VARIABLE in firstServiceLink)
+                {
+                    MessageBox.Show(VARIABLE.First().Data);
+                }
+            }
         }
     }
 }
