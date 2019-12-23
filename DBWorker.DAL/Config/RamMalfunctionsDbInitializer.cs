@@ -15,7 +15,7 @@ namespace DBWorker.DAL.Config
 
         public RamMalfunctionsDbInitializer()
         {
-            _resourcePath = ConfigurationManager.ConnectionStrings["AbsoluteLocalPath"].ConnectionString;
+            _resourcePath = ConfigurationManager.ConnectionStrings["GithubPages"].ConnectionString;
 
             _configFileNames = new[]
             {
@@ -36,7 +36,7 @@ namespace DBWorker.DAL.Config
             {
                 var filePath = $@"{_resourcePath}\{fileName}.json";
 
-                var json = new FileLoader(filePath).Load();
+                var json = new WebLoader(filePath).LoadAsync().Result;
 
                 switch (fileName)
                 {
