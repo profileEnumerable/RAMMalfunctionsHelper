@@ -1,6 +1,4 @@
 ﻿using System.Data.Entity;
-using System.Drawing;
-using System.IO;
 using System.Linq;
 using DBWorker.DAL.EntityFramework;
 using System.Windows.Forms;
@@ -15,8 +13,6 @@ namespace DBWorker
 
         private DataGridViewRow currentRow;
 
-
-
         public Form1()
         {
             InitializeComponent();
@@ -30,20 +26,11 @@ namespace DBWorker
 
         private void ramCrud_RowEnter(object sender, DataGridViewCellEventArgs e)
         {
-
             ram = context.RAMs;
 
             if (e.RowIndex < ram.Count() && e.RowIndex >= 0)
             {
-                var form = new Form
-                {
-                    Size = new Size(500,500)
-                };
-
-                
-
-                form.Show();
-                currentRow = ramCrud.Rows[e.RowIndex];
+          
             }
         }
 

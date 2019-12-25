@@ -7,18 +7,11 @@ namespace DBWorker.DAL.Loaders
 {
     public class FileLoader : ILoader
     {
-        private readonly string _filePath;
-
-        public FileLoader(string filePath)
-        {
-            _filePath = filePath;
-        }
-
-        public async Task<string> LoadAsync()
+        public async Task<string> LoadAsync(string path)
         {
             try
             {
-                using (var streamReader = new StreamReader(_filePath))
+                using (var streamReader = new StreamReader(path))
                 {
                     return await streamReader.ReadToEndAsync();
                 }

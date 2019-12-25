@@ -4,6 +4,6 @@ namespace DBWorker.DAL.Loaders
 {
    public interface ILoader
     {
-        Task<string> LoadAsync();
+        Task<string> LoadAsync(string path);
     }
 }

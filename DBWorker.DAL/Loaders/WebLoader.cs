@@ -1,22 +1,28 @@
-﻿using System.Net.Http;
+﻿using System;
+using System.Net.Http;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace DBWorker.DAL.Loaders
 {
     public class WebLoader : ILoader
     {
-        private readonly string _uri;
-
-        public WebLoader(string uri)
-        {
-            _uri = uri;
-        }
-
-        public async Task<string> LoadAsync()
+        public async Task<string> LoadAsync(string path)
         {
             var httpClient = new HttpClient();
 
-            return await httpClient.GetStringAsync(_uri);
+            Task<string> httpResult = null;
+
+            try
+            {
+                httpResult = httpClient.GetStringAsync(path);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Error occured when loading the json");
+            }
+
+            return httpResult.Result;
         }
     }
 }

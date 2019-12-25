@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
 using DBWorker.DAL.EntityFramework;
@@ -17,16 +16,6 @@ namespace DBWorker
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());
-
-
-            using (var context = new RamMalfunctionsContext())
-            {
-                var firstServiceLink =
-                    from ram in context.RAMs
-                    where ram.Id == 10
-                    select ram.RAMMedias;
-
-            }
         }
     }
 }

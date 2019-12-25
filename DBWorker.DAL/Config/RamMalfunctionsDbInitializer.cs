@@ -12,10 +12,12 @@ namespace DBWorker.DAL.Config
     {
         private readonly string[] _configFileNames;
         private readonly string _resourcePath;
+        private readonly WebLoader webLoader;
 
         public RamMalfunctionsDbInitializer()
         {
             _resourcePath = ConfigurationManager.ConnectionStrings["GithubPages"].ConnectionString;
+            webLoader = new WebLoader();
 
             _configFileNames = new[]
             {
@@ -34,9 +36,9 @@ namespace DBWorker.DAL.Config
         {
             foreach (var fileName in _configFileNames)
             {
-                var filePath = $@"{_resourcePath}\{fileName}.json";
+                var path = $@"{_resourcePath}\{fileName}.json";
 
-                var json = new WebLoader(filePath).LoadAsync().Result;
+                var json = webLoader.LoadAsync(path).Result;
 
                 switch (fileName)
                 {
