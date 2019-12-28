@@ -32,6 +32,8 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabControl2 = new System.Windows.Forms.TabControl();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.label1 = new System.Windows.Forms.Label();
+            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.ramCrud = new System.Windows.Forms.DataGridView();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.tabPage5 = new System.Windows.Forms.TabPage();
@@ -79,6 +81,8 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.label1);
+            this.tabPage3.Controls.Add(this.richTextBox1);
             this.tabPage3.Controls.Add(this.ramCrud);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
@@ -88,12 +92,30 @@
             this.tabPage3.Text = "RAM";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(577, 6);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(91, 16);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "Description 📝";
+            // 
+            // richTextBox1
+            // 
+            this.richTextBox1.Location = new System.Drawing.Point(491, 25);
+            this.richTextBox1.Name = "richTextBox1";
+            this.richTextBox1.Size = new System.Drawing.Size(251, 334);
+            this.richTextBox1.TabIndex = 1;
+            this.richTextBox1.Text = "";
+            // 
             // ramCrud
             // 
             this.ramCrud.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.ramCrud.Location = new System.Drawing.Point(6, 6);
             this.ramCrud.Name = "ramCrud";
-            this.ramCrud.Size = new System.Drawing.Size(736, 350);
+            this.ramCrud.Size = new System.Drawing.Size(479, 350);
             this.ramCrud.TabIndex = 0;
             this.ramCrud.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.ramCrud_RowEnter);
             // 
@@ -151,6 +173,7 @@
             this.tabPage1.ResumeLayout(false);
             this.tabControl2.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
+            this.tabPage3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ramCrud)).EndInit();
             this.ResumeLayout(false);
 
@@ -167,6 +190,8 @@
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.TabPage tabPage6;
         private System.Windows.Forms.DataGridView ramCrud;
+        private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.Label label1;
     }
 }
 
